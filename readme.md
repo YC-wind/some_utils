@@ -1,7 +1,7 @@
 # 说明
 
 ## xmind_util
-
+(on 7 May 2019)
 见文件： `xmind_utils.py`
 
 ### 读写
