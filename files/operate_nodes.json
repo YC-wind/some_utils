@@ -1,0 +1,133 @@
+[
+  {
+    "name": "result",
+    "height": 1,
+    "value": -1,
+    "father": "-1",
+    "operate": "and",
+    "children": [
+      "condition1",
+      "condition2",
+      "condition3"
+    ]
+  },
+  {
+    "name": "condition11",
+    "height": 3,
+    "value": -1,
+    "father": "condition1",
+    "operate": ""
+  },
+  {
+    "name": "condition12",
+    "height": 3,
+    "value": -1,
+    "father": "condition1",
+    "operate": ""
+  },
+  {
+    "name": "condition13",
+    "height": 3,
+    "value": -1,
+    "father": "condition1",
+    "operate": ""
+  },
+  {
+    "name": "condition1",
+    "height": 2,
+    "value": -1,
+    "father": "result",
+    "operate": "or",
+    "children": [
+      "condition11",
+      "condition12",
+      "condition13"
+    ]
+  },
+  {
+    "name": "condition211",
+    "height": 4,
+    "value": -1,
+    "father": "condition21",
+    "operate": ""
+  },
+  {
+    "name": "condition212",
+    "height": 4,
+    "value": -1,
+    "father": "condition21",
+    "operate": ""
+  },
+  {
+    "name": "condition21",
+    "height": 3,
+    "value": -1,
+    "father": "condition2",
+    "operate": "or",
+    "children": [
+      "condition211",
+      "condition212"
+    ]
+  },
+  {
+    "name": "condition22",
+    "height": 3,
+    "value": -1,
+    "father": "condition2",
+    "operate": ""
+  },
+  {
+    "name": "condition2",
+    "height": 2,
+    "value": -1,
+    "father": "result",
+    "operate": "and",
+    "children": [
+      "condition21",
+      "condition22"
+    ]
+  },
+  {
+    "name": "condition311",
+    "height": 4,
+    "value": -1,
+    "father": "condition31",
+    "operate": ""
+  },
+  {
+    "name": "condition312",
+    "height": 4,
+    "value": -1,
+    "father": "condition31",
+    "operate": ""
+  },
+  {
+    "name": "condition31",
+    "height": 3,
+    "value": -1,
+    "father": "condition3",
+    "operate": "and",
+    "children": [
+      "condition311",
+      "condition312"
+    ]
+  },
+  {
+    "name": "condition32",
+    "height": 3,
+    "value": -1,
+    "father": "condition3",
+    "operate": ""
+  },
+  {
+    "name": "condition3",
+    "height": 2,
+    "value": -1,
+    "father": "result",
+    "operate": "or",
+    "children": [
+      "condition31",
+      "condition32"
+    ]
+  }
+]
