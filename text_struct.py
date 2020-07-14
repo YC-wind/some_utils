@@ -112,7 +112,10 @@ class TextStructure:
 
         structure_data = []
         sentences = text.split("\n")
+        former_chapter_text = ""
+        former_chapters = [""] * 5
 
+        temp = []
         for sentence in sentences:
             if len(sentence.strip()) < 1:
                 continue
@@ -124,20 +127,44 @@ class TextStructure:
             # print(sentence, self.is_chapter_level)
             if match(sentence, self.clear["conditions"]):
                 self.is_chapter_level = 0
-                continue
 
             if self.is_chapter_level > 0:
                 # print(self.is_chapter_level, self.chapter_text, sentence)
                 # print(self.now_chapters, sentence)
-                structure_data.append({
-                    "chapter1": self.now_chapters[0],
-                    "chapter2": self.now_chapters[1],
-                    "chapter3": self.now_chapters[2],
-                    "chapter4": self.now_chapters[3],
-                    "chapter5": self.now_chapters[4],
-                    "text": sentence
-                })
-
+                if former_chapter_text and self.chapter_text != former_chapter_text:
+                    structure_data.append({
+                        "chapter1": former_chapters[0],
+                        "chapter2": former_chapters[1],
+                        "chapter3": former_chapters[2],
+                        "chapter4": former_chapters[3],
+                        "chapter5": former_chapters[4],
+                        "text": "\n".join(temp)
+                    })
+                    temp = [sentence]
+                else:
+                    temp.append(sentence)
+                former_chapter_text = self.chapter_text
+                former_chapters = self.now_chapters
+            else:
+                if len(temp):
+                    structure_data.append({
+                        "chapter1": former_chapters[0],
+                        "chapter2": former_chapters[1],
+                        "chapter3": former_chapters[2],
+                        "chapter4": former_chapters[3],
+                        "chapter5": former_chapters[4],
+                        "text": "\n".join(temp)
+                    })
+                    temp = []
+        if len(temp):
+            structure_data.append({
+                "chapter1": former_chapters[0],
+                "chapter2": former_chapters[1],
+                "chapter3": former_chapters[2],
+                "chapter4": former_chapters[3],
+                "chapter5": former_chapters[4],
+                "text": "\n".join(temp)
+            })
         df = pd.DataFrame(structure_data)
         df.to_csv("demo.csv")
         # a = df.groupby(["chapter1", "chapter2"])
@@ -149,47 +176,6 @@ class TextStructure:
 
 # conditions, 内圈与， 外圈或
 
-# config_1 = {
-#     "chapter1": {
-#         "conditions": [[{"value": "^[一二三四五六七八九十]+、", "operate": "Match"},
-#                         {"value": "50", "operate": "TextLenLess"},
-#                         ]
-#                        ]
-#     },
-#     "chapter2": {
-#         "conditions": [[{"value": "^（[一二三四五六七八九十]+）", "operate": "Match"}
-#                         ]
-#                        ]
-#     },
-#     "chapter3": {
-#         "conditions": [[
-#         ]
-#         ]
-#     },
-#     "chapter4": {
-#         "conditions": [[
-#         ]
-#         ]
-#     },
-#     "chapter5": {
-#         "conditions": [[
-#         ]
-#         ]
-#     },
-#     "clear": {
-#         "conditions": [[{"value": "^(附件|附则)", "operate": "Match"},
-#                         {"value": "50", "operate": "TextLenLess"},
-#                         ],
-#                        [{"value": "^.{0,6}年.{0,3}年.{0,3}日?", "operate": "Match"},
-#                         {"value": "15", "operate": "TextLenLess"},
-#                         ],
-#                        [{"value": "(部|局)$", "operate": "Match"},
-#                         {"value": "10", "operate": "TextLenLess"},
-#                         ],
-#                        ]
-#     },
-# }
-#
 config_ = {
     "chapter1": {
         "conditions": [
@@ -244,14 +230,19 @@ xxxxxxx
 xxxxx
 第一章 1
 第一条 11
+111111
 第二条 12
+112121212
 第三条 13
 第四条 14
 第五条 15
 第六条 16
 第二章 2
 第七条 21
+123123123123
 第八条 22
+
+附则
 
 """
 
