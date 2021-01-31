@@ -2,6 +2,7 @@ import redis
 import json
 
 conn = redis.Redis(host="127.0.0.1", port=6379, decode_responses=True)
+# conn = redis.Redis(host="127.0.0.1", port=6379, decode_responses=False)# 对于pickle二进制数据，不要解码，不然报错
 
 
 def callback_1(data):
